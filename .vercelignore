@@ -1,0 +1,10 @@
+# Only relevant for `vercel deploy` from a local folder (Git deployments use the repository as it is).
+.env*
+!.env.example
+backups
+tests
+docs
+brand-source
+data/source
+supabase/.temp
+supabase/.branches

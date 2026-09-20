@@ -1,0 +1,1 @@
+-- intentionally empty: catalog seed runs through scripts/seed-catalog.ts (idempotent, uploads images)

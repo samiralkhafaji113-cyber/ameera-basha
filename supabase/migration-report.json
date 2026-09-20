@@ -1,0 +1,42 @@
+{
+  "ranAt": "2026-09-20T13:46:29.134Z",
+  "before": {
+    "products": 72,
+    "images": 282,
+    "withPrice": 22,
+    "withoutPrice": 50,
+    "byCategory": {
+      "women": 22,
+      "kids": 21,
+      "school": 3,
+      "stationery": 3,
+      "accessories": 15,
+      "home": 8
+    },
+    "duplicateSlugs": 0,
+    "duplicatePosts": 0
+  },
+  "after": {
+    "products": 72,
+    "images": 282,
+    "withPrice": 22,
+    "withoutPrice": 50,
+    "byCategory": {
+      "women": 22,
+      "kids": 21,
+      "school": 3,
+      "stationery": 3,
+      "accessories": 15,
+      "home": 8
+    },
+    "duplicatePostIds": 0,
+    "published": 72,
+    "missingSourceInfo": 0
+  },
+  "missing": [],
+  "checks": {
+    "no missing records": true,
+    "no duplicates": true,
+    "source url / post id / date kept on every product": true
+  }
+}

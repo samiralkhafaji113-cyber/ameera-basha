@@ -1,0 +1,63 @@
+{
+  "name": "ameera-basha",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "build:catalog": "node scripts/build-catalog.mjs",
+    "build:brand": "node scripts/build-brand-assets.mjs",
+    "db:start": "npx supabase@2.117.0 start",
+    "db:stop": "npx supabase@2.117.0 stop",
+    "db:reset": "npx supabase@2.117.0 db reset",
+    "db:env": "node scripts/init-local-env.mjs",
+    "db:seed": "tsx --env-file=.env.local scripts/seed-catalog.mts",
+    "db:create-admin": "tsx --env-file=.env.local scripts/create-admin.mts",
+    "test:integration": "tsx --env-file=.env.local --test --test-concurrency=1 tests/integration/*.test.ts",
+    "verify": "npm run lint && npm run typecheck && npm test",
+    "check:env": "tsx scripts/check-env.mts",
+    "db:audit": "tsx --env-file=.env.local scripts/audit-data.mts",
+    "db:verify": "tsx --env-file=.env.local scripts/verify-migration.mts",
+    "db:backup": "tsx --env-file=.env.local scripts/backup.mts",
+    "staff:audit": "tsx --env-file=.env.local scripts/staff-audit.mts",
+    "smoke:e2e": "tsx scripts/e2e-smoke.mts",
+    "prod:check-env": "tsx --env-file=.env.production.local scripts/check-env.mts",
+    "prod:seed": "tsx --env-file=.env.production.local scripts/seed-catalog.mts --allow-remote",
+    "prod:verify": "tsx --env-file=.env.production.local scripts/verify-migration.mts --allow-remote --baseline supabase/local-audit.json",
+    "prod:audit": "tsx --env-file=.env.production.local scripts/audit-data.mts --allow-remote --out backups/production-audit.json",
+    "prod:backup": "tsx --env-file=.env.production.local scripts/backup.mts --allow-remote",
+    "prod:create-admin": "tsx --env-file=.env.production.local scripts/create-admin.mts --allow-remote",
+    "prod:staff-audit": "tsx --env-file=.env.production.local scripts/staff-audit.mts --allow-remote --forbid-test-accounts",
+    "prod:cleanup-test-data": "tsx --env-file=.env.production.local scripts/cleanup-test-data.mts --allow-remote",
+    "prod:db-push": "npx --yes supabase@2.117.0 db push"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.116.0",
+    "lucide-react": "^1.47.0",
+    "next": "16.3.5",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.5",
+    "puppeteer-core": "^25.11.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.13",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": "24.x"
+  }
+}

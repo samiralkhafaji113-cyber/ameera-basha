@@ -1,0 +1,33 @@
+{
+  "target": "127.0.0.1:54321",
+  "local": true,
+  "takenAt": "2026-09-20T13:47:16.725Z",
+  "products": {
+    "total": 72,
+    "draft": 0,
+    "published": 72,
+    "hidden": 0,
+    "archived": 0,
+    "trashed": 0
+  },
+  "productsByCategory": {
+    "women": 22,
+    "kids": 21,
+    "school": 3,
+    "stationery": 3,
+    "accessories": 15,
+    "home": 8
+  },
+  "images": 282,
+  "productsWithPrimaryImage": 72,
+  "prices": {
+    "withPrice": 22,
+    "withoutPrice": 50,
+    "verified": 0,
+    "unverified": 22
+  },
+  "categories": 6,
+  "reservations": 0,
+  "auditLogRows": 1483,
+  "staffProfiles": 2
+}

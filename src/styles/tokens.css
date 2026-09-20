@@ -1,0 +1,106 @@
+/* Design Tokens - Auto-generated */
+/* Do not edit directly - modify tokens.json instead */
+
+/* === PRIMITIVES === */
+:root {
+  --primitive-color-white: #FFFFFF;
+  --primitive-color-stone-50: #FAFAF9;
+  --primitive-color-stone-100: #F5F5F4;
+  --primitive-color-stone-200: #E7E5E4;
+  --primitive-color-stone-300: #D6D3D1;
+  --primitive-color-stone-400: #A8A29E;
+  --primitive-color-stone-500: #78716C;
+  --primitive-color-stone-600: #57534E;
+  --primitive-color-stone-700: #44403C;
+  --primitive-color-stone-800: #292524;
+  --primitive-color-stone-900: #1C1917;
+  --primitive-color-stone-950: #0C0A09;
+  --primitive-color-gold-50: #FEFCE8;
+  --primitive-color-gold-600: #CA8A04;
+  --primitive-color-gold-700: #A16207;
+  --primitive-color-gold-800: #854D0E;
+  --primitive-color-sand-50: #FBF8F3;
+  --primitive-color-sand-100: #F5EEE4;
+  --primitive-color-sand-200: #EADFCF;
+  --primitive-color-sand-300: #D4C4A8;
+  --primitive-color-terracotta-500: #C67B5C;
+  --primitive-color-terracotta-700: #9A4F33;
+  --primitive-color-green-50: #F0FDF4;
+  --primitive-color-green-700: #15803D;
+  --primitive-color-green-800: #166534;
+  --primitive-color-amber-50: #FFFBEB;
+  --primitive-color-amber-700: #B45309;
+  --primitive-color-red-50: #FEF2F2;
+  --primitive-color-red-700: #B91C1C;
+  --primitive-color-ink: #050505;
+  --primitive-color-paper: #FFFFFF;
+  --primitive-space-1: 4px;
+  --primitive-space-2: 8px;
+  --primitive-space-3: 12px;
+  --primitive-space-4: 16px;
+  --primitive-space-6: 24px;
+  --primitive-space-8: 32px;
+  --primitive-space-12: 48px;
+  --primitive-space-16: 64px;
+  --primitive-radius-sm: 8px;
+  --primitive-radius-md: 10px;
+  --primitive-radius-lg: 16px;
+  --primitive-radius-pill: 999px;
+  --primitive-shadow-sm: 0 1px 2px rgb(28 25 23 / 0.06), 0 1px 3px rgb(28 25 23 / 0.05);
+  --primitive-shadow-md: 0 2px 4px rgb(28 25 23 / 0.05), 0 8px 20px rgb(28 25 23 / 0.08);
+  --primitive-shadow-lg: 0 4px 8px rgb(28 25 23 / 0.06), 0 20px 40px rgb(28 25 23 / 0.12);
+  --primitive-motion-fast: 150ms;
+  --primitive-motion-base: 220ms;
+  --primitive-motion-slow: 320ms;
+  --primitive-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* === SEMANTIC === */
+:root {
+  --ds-color-primary: #050505;
+  --ds-color-primary-hover: #292524;
+  --ds-color-on-primary: #FFFFFF;
+  --ds-color-secondary: #44403C;
+  --ds-color-on-secondary: #FFFFFF;
+  --ds-color-accent: #A16207;
+  --ds-color-accent-hover: #854D0E;
+  --ds-color-on-accent: #FFFFFF;
+  --ds-color-accent-text: #854D0E;
+  --ds-color-bg: #FAFAF9;
+  --ds-color-surface: #FFFFFF;
+  --ds-color-surface-warm: #FBF8F3;
+  --ds-color-surface-sand: #F5EEE4;
+  --ds-color-surface-sand-strong: #EADFCF;
+  --ds-color-text: #0C0A09;
+  --ds-color-text-muted: #57534E;
+  --ds-color-border: #D6D3D1;
+  --ds-color-border-soft: #E7E5E4;
+  --ds-color-ring: #050505;
+  --ds-color-ring-inverse: #FFFFFF;
+  --ds-color-success: #15803D;
+  --ds-color-success-bg: #F0FDF4;
+  --ds-color-warning: #B45309;
+  --ds-color-warning-bg: #FFFBEB;
+  --ds-color-error: #B91C1C;
+  --ds-color-error-bg: #FEF2F2;
+  --ds-color-whatsapp: #15803D;
+  --ds-color-whatsapp-hover: #166534;
+  --ds-color-blush: #9A4F33;
+  --ds-color-brand-ink: #050505;
+  --ds-color-brand-paper: #FFFFFF;
+}
+
+/* === COMPONENTS === */
+:root {
+  --btn-radius: 10px;
+  --btn-height: 48px;
+  --btn-height-sm: 40px;
+  --btn-px: 24px;
+  --card-radius: 16px;
+  --card-shadow: 0 1px 2px rgb(28 25 23 / 0.06), 0 1px 3px rgb(28 25 23 / 0.05);
+  --card-shadow-hover: 0 2px 4px rgb(28 25 23 / 0.05), 0 8px 20px rgb(28 25 23 / 0.08);
+  --input-height: 48px;
+  --input-radius: 10px;
+  --modal-radius: 16px;
+  --modal-shadow: 0 4px 8px rgb(28 25 23 / 0.06), 0 20px 40px rgb(28 25 23 / 0.12);
+}
