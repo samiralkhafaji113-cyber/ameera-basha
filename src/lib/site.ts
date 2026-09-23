@@ -5,8 +5,10 @@
  */
 // Production/Preview on Vercel: NEXT_PUBLIC_SITE_URL is the public domain. A Preview deployment without it falls back to its own
 // *.vercel.app address so canonical/OG URLs never point at localhost or at production.
+// `|| undefined` (not `??`): the Preview environment on Vercel can carry the variable as an EMPTY string rather
+// than leaving it unset, which `??` would treat as "set" and hand `new URL("")` straight to next/metadata — throwing.
 const rawUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+  process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
 export const site = {
   nameAr: "مجمع أميرة باشا",

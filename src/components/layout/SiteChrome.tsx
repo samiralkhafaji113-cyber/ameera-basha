@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { MobileActionBar } from "@/components/layout/MobileActionBar";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { localBusinessSchema } from "@/components/seo/schemas";
+import { PageTransition } from "@/components/ui/PageTransition";
 
 /** Public-site frame (skip link, header, footer, mobile action bar). The admin has its own frame. */
 export function SiteChrome({ children }: { children: ReactNode }) {
@@ -18,7 +19,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       </a>
       <Header />
       <main id="main" className="flex-1">
-        {children}
+        <PageTransition>{children}</PageTransition>
       </main>
       <Footer />
       <MobileActionBar />

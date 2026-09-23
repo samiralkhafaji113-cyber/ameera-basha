@@ -1,4 +1,5 @@
 import { ar } from "@/content/ar";
+import { cn } from "@/lib/cn";
 import type { Product } from "@/types/product";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -21,10 +22,10 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
           }
         />
         <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
-          {products.map((p) => (
-            <li key={p.id} className="flex min-w-0">
+          {products.map((p, i) => (
+            <li key={p.id} className={cn("flex min-w-0", i === 0 && "col-span-2")}>
               <div className="flex min-w-0 flex-1">
-                <ProductCard product={p} />
+                <ProductCard product={p} featured={i === 0} preload={i < 2} />
               </div>
             </li>
           ))}

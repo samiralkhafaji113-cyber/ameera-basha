@@ -52,6 +52,7 @@
   --primitive-motion-fast: 150ms;
   --primitive-motion-base: 220ms;
   --primitive-motion-slow: 320ms;
+  --primitive-motion-reveal: 600ms;
   --primitive-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -88,6 +89,8 @@
   --ds-color-blush: #9A4F33;
   --ds-color-brand-ink: #050505;
   --ds-color-brand-paper: #FFFFFF;
+  /* Product-image hover overlay (premium fashion card pattern): a soft dark wash for CTA legibility, never opaque */
+  --ds-color-image-overlay: rgb(12 10 9 / 0.28);
 }
 
 /* === COMPONENTS === */

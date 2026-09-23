@@ -50,7 +50,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="!text-base !text-white">{ar.footer.links}</h2>
+          <h2 className="!text-sm !font-bold !tracking-[0.08em] !text-stone-300">{ar.footer.links}</h2>
           <ul className="mt-3 space-y-0.5">
             {[
               { href: "/", label: ar.nav.home },
@@ -70,7 +70,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="!text-base !text-white">{ar.nav.contact}</h2>
+          <h2 className="!text-sm !font-bold !tracking-[0.08em] !text-stone-300">{ar.nav.contact}</h2>
           <address className="mt-3 space-y-0.5 not-italic">
             <p className="flex items-start gap-2 text-sm leading-7">
               <MapPin className="mt-1.5 size-4 shrink-0 text-surface-sand-strong" aria-hidden="true" />
