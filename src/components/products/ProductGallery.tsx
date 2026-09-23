@@ -4,8 +4,10 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import type { KeyboardEvent, TouchEvent } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { ar } from "@/content/ar";
 import { cn } from "@/lib/cn";
+import { DURATION, EASE_SOFT } from "@/lib/motion";
 import type { ProductImage } from "@/types/product";
 
 export function ProductGallery({ images, name }: { images: ProductImage[]; name: string }) {
@@ -43,15 +45,24 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
         onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
         onTouchEnd={onTouchEnd}
       >
-        <Image
-          key={current.src}
-          src={current.src}
-          alt={`${name} – ${ar.product.image(index + 1, total)}`}
-          fill
-          preload={index === 0}
-          sizes="(min-width: 1024px) 560px, 100vw"
-          className="object-contain"
-        />
+        <AnimatePresence initial={false} mode="sync">
+          <motion.div
+            key={current.src}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.02 }}
+            animate={{ opacity: 1, scale: 1, transition: { duration: DURATION.base, ease: EASE_SOFT } }}
+            exit={{ opacity: 0, transition: { duration: DURATION.fast, ease: EASE_SOFT } }}
+          >
+            <Image
+              src={current.src}
+              alt={`${name} – ${ar.product.image(index + 1, total)}`}
+              fill
+              preload={index === 0}
+              sizes="(min-width: 1024px) 560px, 100vw"
+              className="object-contain"
+            />
+          </motion.div>
+        </AnimatePresence>
         {total > 1 && (
           <>
             <button

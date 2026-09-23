@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, MessageCircle } from "lucide-react";
 import { ar } from "@/content/ar";
 import { socialLinks } from "@/data/social";
@@ -34,10 +34,30 @@ export function Header() {
   const menuBtn = useRef<HTMLButtonElement>(null);
   const socials = socialLinks();
 
+  // Only the homepage has a Hero for the header to float over transparently; every other page keeps the
+  // always-solid header (it never had a hero image behind it, so "transparent" would just look unstyled).
+  const isHome = pathname === "/";
+  const [scrolledPastTop, setScrolledPastTop] = useState(() => (typeof window !== "undefined" ? window.scrollY > 24 : false));
+  useEffect(() => {
+    if (!isHome) return; // non-home pages never float, so no need to track scroll at all
+    const onScroll = () => setScrolledPastTop(window.scrollY > 24);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
+  const scrolled = !isHome || scrolledPastTop;
+
   const isActive = (href: string) => (href === "/" ? pathname === "/" : !href.includes("#") && pathname.startsWith(href));
+  const floating = isHome && !scrolled;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line-soft bg-bg/92 backdrop-blur supports-[backdrop-filter]:bg-bg/80">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-soft",
+        floating
+          ? "border-transparent bg-transparent"
+          : "border-line-soft bg-bg/92 shadow-[0_1px_0_rgba(0,0,0,0.02)] backdrop-blur supports-[backdrop-filter]:bg-bg/80",
+      )}
+    >
       <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
         <Logo imageClassName="h-[3.75rem]" preload />
 

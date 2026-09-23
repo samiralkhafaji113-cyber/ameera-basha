@@ -6,9 +6,11 @@ export type ButtonVariant = "primary" | "accent" | "secondary" | "whatsapp" | "g
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md font-semibold leading-none whitespace-nowrap select-none " +
+  "group inline-flex items-center justify-center gap-2 rounded-md font-semibold leading-none whitespace-nowrap select-none " +
   "transition-[background-color,color,box-shadow,transform,border-color] duration-200 ease-soft " +
   "active:translate-y-px disabled:pointer-events-none disabled:opacity-55";
+
+const iconWrap = "inline-flex transition-transform duration-200 ease-soft group-hover:scale-110";
 
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-primary text-on-primary hover:bg-primary-hover hover:shadow-card",
@@ -48,7 +50,7 @@ export function Button({
 }: CommonProps & Omit<ComponentPropsWithRef<"button">, keyof CommonProps>) {
   return (
     <button type={type} className={buttonClass(variant, size, className)} {...rest}>
-      {icon}
+      {icon && <span className={iconWrap}>{icon}</span>}
       {children}
     </button>
   );
@@ -70,14 +72,14 @@ export function ButtonLink({
     const web = href.startsWith("http");
     return (
       <a href={href} className={cls} {...(web ? { target: "_blank", rel: "noopener noreferrer" } : {})} {...rest}>
-        {icon}
+        {icon && <span className={iconWrap}>{icon}</span>}
         {children}
       </a>
     );
   }
   return (
     <Link href={href} className={cls} {...rest}>
-      {icon}
+      {icon && <span className={iconWrap}>{icon}</span>}
       {children}
     </Link>
   );

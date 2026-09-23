@@ -3,6 +3,8 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { LayoutGrid, List, RotateCcw, Search, SlidersHorizontal, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { fadeUp } from "@/lib/motion";
 import { ar } from "@/content/ar";
 import { AGE_BUCKETS, PRICE_BUCKETS, SIZE_LABELS } from "@/data/categories";
 import { cn } from "@/lib/cn";
@@ -313,13 +315,23 @@ export function ProductBrowser({ products, categories }: { products: Product[]; 
       ) : (
         <>
           <ul className={cn("grid gap-3 sm:gap-5", view === "list" ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-2 lg:grid-cols-4")}>
-            {shown.map((p, i) => (
-              <li key={p.id} className="flex min-w-0">
-                <div className="flex min-w-0 flex-1">
-                  <ProductCard product={p} view={view} preload={i < 2} />
-                </div>
-              </li>
-            ))}
+            <AnimatePresence initial={false} mode="popLayout">
+              {shown.map((p, i) => (
+                <motion.li
+                  key={p.id}
+                  layout
+                  initial="hidden"
+                  animate="show"
+                  exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.15 } }}
+                  variants={fadeUp}
+                  className="flex min-w-0"
+                >
+                  <div className="flex min-w-0 flex-1">
+                    <ProductCard product={p} view={view} preload={i < 2} />
+                  </div>
+                </motion.li>
+              ))}
+            </AnimatePresence>
           </ul>
           {shown.length < results.length && (
             <div className="flex justify-center">

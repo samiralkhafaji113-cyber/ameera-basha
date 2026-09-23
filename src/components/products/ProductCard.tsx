@@ -46,9 +46,15 @@ export function ProductCard({ product, view = "grid", preload = false }: { produ
             fill
             preload={preload}
             sizes={list ? "176px" : "(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"}
-            className="object-cover transition-transform duration-500 ease-soft group-hover:scale-[1.04]"
+            className="object-cover transition-transform duration-500 ease-soft group-hover:scale-[1.05]"
           />
         )}
+        {/* Premium image-first hover: a soft wash rises from the base so the eye reads "there's more here"
+            without covering the product itself – transform/opacity only, no layout impact. */}
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-image-overlay to-transparent opacity-0 transition-opacity duration-300 ease-soft group-hover:opacity-100"
+        />
         {(product.available || unavailable) && (
           <span className="absolute start-2 top-2">
             <Badge tone={unavailable ? "error" : "success"} className="shadow-card">

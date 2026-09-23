@@ -1,10 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 import { Baby, CalendarCheck, GraduationCap, MapPin, MessageCircle, Pencil, Phone, Search, Shirt, Truck } from "lucide-react";
 import type { ReactNode } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ar } from "@/content/ar";
 import { site } from "@/lib/site";
 import { bookingIntroMessage, whatsappUrl } from "@/lib/whatsapp";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Field";
 
@@ -17,18 +22,33 @@ const MAIN: { label: string; href: string; icon: ReactNode }[] = [
 
 export function Hero() {
   const t = ar.hero;
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+  // Subtle parallax on the image collage only (transform, GPU-friendly). The images themselves are never
+  // faded/hidden on load – one of them carries `preload` as the page's LCP candidate, so it must paint
+  // immediately at full opacity; only its position drifts a few pixels as the page scrolls past it.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 28]);
+
   return (
-    <section aria-labelledby="hero-title" className="relative overflow-hidden bg-surface-warm">
+    <section ref={sectionRef} aria-labelledby="hero-title" className="relative overflow-hidden bg-surface-warm">
       <div className="container-page grid items-center gap-7 py-7 sm:gap-10 sm:py-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-16">
-        <div>
-          <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-surface px-4 py-1.5 text-sm font-semibold text-accent-text">
+        <motion.div initial="hidden" animate="show" variants={staggerContainer(0.09, 0.05)}>
+          <motion.p
+            variants={fadeUp}
+            className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-surface px-4 py-1.5 text-sm font-semibold text-accent-text"
+          >
             <MapPin className="size-4" aria-hidden="true" />
             {t.eyebrow}
-          </p>
-          <h1 id="hero-title">{t.title}</h1>
-          <p className="mt-3 max-w-xl text-base leading-8 text-muted sm:mt-5 sm:text-lg">{t.subtitle}</p>
+          </motion.p>
+          <motion.h1 variants={fadeUp} id="hero-title">
+            {t.title}
+          </motion.h1>
+          <motion.p variants={fadeUp} className="mt-3 max-w-xl text-base leading-8 text-muted sm:mt-5 sm:text-lg">
+            {t.subtitle}
+          </motion.p>
 
-          <ul className="mt-5 flex flex-wrap gap-2" aria-label={t.mainLabel}>
+          <motion.ul variants={fadeUp} className="mt-5 flex flex-wrap gap-2" aria-label={t.mainLabel}>
             {MAIN.map((m) => (
               <li key={m.href}>
                 <Link
@@ -40,9 +60,9 @@ export function Hero() {
                 </Link>
               </li>
             ))}
-          </ul>
+          </motion.ul>
 
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:flex sm:flex-wrap">
+          <motion.div variants={fadeUp} className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:flex sm:flex-wrap">
             <ButtonLink href="/products" variant="primary" size="lg" className="col-span-2 sm:col-span-1">
               {t.browse}
             </ButtonLink>
@@ -58,9 +78,9 @@ export function Hero() {
             <ButtonLink href="/#contact" variant="secondary" size="lg" icon={<Phone className="size-5" aria-hidden="true" />}>
               {t.contact}
             </ButtonLink>
-          </div>
+          </motion.div>
 
-          <form action="/products" role="search" className="mt-5 max-w-xl sm:mt-7">
+          <motion.form variants={fadeUp} action="/products" role="search" className="mt-5 max-w-xl sm:mt-7">
             <label htmlFor="hero-search" className="mb-1.5 block text-sm font-semibold text-secondary">
               {t.searchLabel}
             </label>
@@ -85,10 +105,13 @@ export function Hero() {
                 </Link>
               ))}
             </p>
-          </form>
-        </div>
+          </motion.form>
+        </motion.div>
 
-        <div className="mx-auto grid aspect-[16/9] w-full max-w-[30rem] grid-cols-3 gap-2 sm:gap-3 lg:aspect-[5/6] lg:grid-cols-2 lg:grid-rows-2 lg:gap-4">
+        <motion.div
+          style={{ y: parallaxY }}
+          className="mx-auto grid aspect-[16/9] w-full max-w-[30rem] grid-cols-3 gap-2 sm:gap-3 lg:aspect-[5/6] lg:grid-cols-2 lg:grid-rows-2 lg:gap-4"
+        >
           <div className="relative order-2 overflow-hidden rounded-t-full rounded-b-lg bg-surface-sand shadow-card-hover lg:order-none lg:row-span-2">
             <Image
               src="/products/26598/1.webp"
@@ -120,7 +143,7 @@ export function Hero() {
               className="object-cover object-[50%_20%]"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Trust strip – only facts confirmed by the owner / the store's own posts */}

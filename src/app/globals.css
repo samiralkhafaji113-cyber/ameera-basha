@@ -30,6 +30,7 @@
   --color-whatsapp: var(--ds-color-whatsapp);
   --color-whatsapp-hover: var(--ds-color-whatsapp-hover);
   --color-blush: var(--ds-color-blush);
+  --color-image-overlay: var(--ds-color-image-overlay);
 
   --font-heading: var(--font-kufi), "Noto Kufi Arabic", "Segoe UI", Tahoma, sans-serif;
   --font-sans: var(--font-noto-sans), "Noto Sans Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
