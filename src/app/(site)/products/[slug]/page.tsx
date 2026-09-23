@@ -87,18 +87,18 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
         ]}
       />
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
+      <div className="mt-6 grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14 xl:gap-20">
         <ProductGallery images={p.images} name={p.name} />
 
         <div className="flex flex-col gap-5 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:self-start">
-          <div className="flex flex-wrap gap-2">
-            <Badge tone="gold">{p.categoryName}</Badge>
-            {sub && <Badge>{sub}</Badge>}
+          <p className="label-editorial text-accent-text">{sub ? `${p.categoryName} · ${sub}` : p.categoryName}</p>
+
+          <h1 className="text-display !text-[clamp(2rem,1.5rem+2.6vw,3.5rem)]">{p.name}</h1>
+
+          <div className="flex flex-wrap items-center gap-2">
             {p.available && <Badge tone="success">{t.availableBySource}</Badge>}
             {unavailable && <Badge tone="error">{t.unavailable}</Badge>}
           </div>
-
-          <h1 className="!text-[clamp(1.875rem,1.4rem+2vw,2.75rem)]">{p.name}</h1>
 
           <p className="text-3xl font-bold text-text">
             {p.price !== undefined ? formatPrice(p.price) : <span className="text-xl text-muted">{t.priceOnRequest}</span>}
@@ -106,9 +106,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
           {p.description && <p className="text-base leading-8 text-secondary">{p.description}</p>}
 
-          <dl className="divide-y divide-line-soft rounded-lg border border-line-soft bg-surface">
+          <dl className="flex flex-col divide-y divide-line-soft border-y border-line-soft">
             {facts.map((f) => (
-              <div key={f.label} className="flex items-baseline justify-between gap-4 px-4 py-3">
+              <div key={f.label} className="flex items-baseline justify-between gap-4 py-3">
                 <dt className="text-sm font-semibold text-muted">{f.label}</dt>
                 <dd className="text-start text-sm font-semibold text-text">{f.value}</dd>
               </div>

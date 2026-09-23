@@ -83,7 +83,7 @@ export function ProductBrowser({ products, categories }: { products: Product[]; 
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-4 rounded-lg border border-line-soft bg-surface p-4 shadow-card sm:p-5">
+      <div className="flex flex-col gap-4 rounded-[3px] border-b border-line-soft bg-surface-warm p-4 sm:p-5">
         <form role="search" onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="product-search" className="sr-only">
             {t.searchLabel}
@@ -316,21 +316,26 @@ export function ProductBrowser({ products, categories }: { products: Product[]; 
         <>
           <ul className={cn("grid gap-3 sm:gap-5", view === "list" ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-2 lg:grid-cols-4")}>
             <AnimatePresence initial={false} mode="popLayout">
-              {shown.map((p, i) => (
-                <motion.li
-                  key={p.id}
-                  layout
-                  initial="hidden"
-                  animate="show"
-                  exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.15 } }}
-                  variants={fadeUp}
-                  className="flex min-w-0"
-                >
-                  <div className="flex min-w-0 flex-1">
-                    <ProductCard product={p} view={view} preload={i < 2} />
-                  </div>
-                </motion.li>
-              ))}
+              {shown.map((p, i) => {
+                // A single wider "editorial" card for the first result of the default, unfiltered grid –
+                // varying image ratio instead of a uniform wall of identical tiles. Never during search/filter/list.
+                const isFeatured = view === "grid" && !anyFilter && i === 0;
+                return (
+                  <motion.li
+                    key={p.id}
+                    layout
+                    initial="hidden"
+                    animate="show"
+                    exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.15 } }}
+                    variants={fadeUp}
+                    className={cn("flex min-w-0", isFeatured && "col-span-2")}
+                  >
+                    <div className="flex min-w-0 flex-1">
+                      <ProductCard product={p} view={view} preload={i < 2} featured={isFeatured} />
+                    </div>
+                  </motion.li>
+                );
+              })}
             </AnimatePresence>
           </ul>
           {shown.length < results.length && (

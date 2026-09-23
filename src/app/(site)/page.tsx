@@ -17,11 +17,12 @@ export default async function HomePage() {
       {/* Hero animates its own entrance (above-the-fold, no scroll-reveal needed). Everything below reveals
           once as it scrolls into view – section-level only, per the brief ("not everything should move"). */}
       <Hero />
-      <AnimatedSection>
-        <CategoryCards categories={categories} />
-      </AnimatedSection>
+      {/* Products first – a fashion retailer opens with the collection, not a menu of departments. */}
       <AnimatedSection>
         <FeaturedProducts products={featured} />
+      </AnimatedSection>
+      <AnimatedSection>
+        <CategoryCards categories={categories} />
       </AnimatedSection>
       <AnimatedSection>
         <WhySection />

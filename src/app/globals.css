@@ -46,7 +46,7 @@
 }
 
 :root {
-  --header-h: 84px;
+  --header-h: 92px;
   color-scheme: light;
 }
 
@@ -91,6 +91,25 @@ h3 {
 }
 p {
   text-wrap: pretty;
+}
+
+/* Editorial display type — reserved for the Hero headline and other single, dominant statements.
+   Deliberately NOT the default h1 (product/list pages need a calmer, readable size). */
+.text-display {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+  text-wrap: balance;
+  font-size: clamp(2.75rem, 1.7rem + 5.2vw, 5.75rem);
+}
+
+/* Small tracked-out editorial label ("N°01", "SINCE …", eyebrow tags) — the recurring "magazine" detail. */
+.label-editorial {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
 }
 
 /* Focus states – visible on every interactive element (WCAG 2.4.7 / 2.4.11) */

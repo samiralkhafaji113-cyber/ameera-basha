@@ -16,29 +16,31 @@ const ICONS: Record<string, ReactNode> = {
 export function WhySection() {
   const t = ar.why;
   return (
-    <section id="about" aria-labelledby="why-title" className="py-14 sm:py-20">
-      <div className="container-page grid items-start gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
+    <section id="about" aria-labelledby="why-title" className="overflow-hidden bg-primary py-16 text-stone-200 sm:py-24">
+      <div className="container-page grid items-center gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+        {/* Full-bleed store photo, bleeding to the section edge on large screens for an editorial, less
+            "boxed" read than a framed card. */}
+        <figure className="relative -mx-4 aspect-[4/3] overflow-hidden sm:-mx-6 lg:mx-0 lg:aspect-[4/5] lg:rounded-md">
+          <Image src="/store/interior.webp" alt={t.photoAlt} fill sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
+          <figcaption className="label-editorial absolute bottom-4 start-4 rounded-sm bg-primary/80 px-3 py-1.5 text-stone-200 backdrop-blur-sm">
+            {t.photoCaption}
+          </figcaption>
+        </figure>
+
         <div>
-          <SectionHeading id="why-title" eyebrow={t.eyebrow} title={t.title} />
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+          <SectionHeading id="why-title" eyebrow={t.eyebrow} title={t.title} inverse />
+          <ul className="mt-8 flex flex-col divide-y divide-white/10 border-t border-white/10">
             {t.items.map((item) => (
-              <li key={item.title} className="flex gap-4 rounded-lg border border-line-soft bg-surface p-5 shadow-card">
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-sand text-accent-text">{ICONS[item.icon]}</span>
+              <li key={item.title} className="flex items-start gap-4 py-4">
+                <span className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-full bg-white/10 text-surface-sand-strong">{ICONS[item.icon]}</span>
                 <div>
-                  <h3 className="!text-lg">{item.title}</h3>
-                  <p className="mt-1 text-sm leading-7 text-muted">{item.text}</p>
+                  <h3 className="!text-base !text-white">{item.title}</h3>
+                  <p className="mt-1 text-sm leading-7 text-stone-300">{item.text}</p>
                 </div>
               </li>
             ))}
           </ul>
         </div>
-
-        <figure className="mx-auto w-full max-w-sm lg:max-w-none">
-          <div className="relative aspect-[9/10] overflow-hidden rounded-t-full rounded-b-lg border border-line-soft bg-surface-sand shadow-card-hover">
-            <Image src="/store/interior.webp" alt={t.photoAlt} fill sizes="(min-width: 1024px) 360px, 90vw" className="object-cover" />
-          </div>
-          <figcaption className="mt-3 text-center text-sm font-semibold text-muted">{t.photoCaption}</figcaption>
-        </figure>
       </div>
     </section>
   );
