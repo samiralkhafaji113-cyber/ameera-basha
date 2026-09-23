@@ -12,6 +12,11 @@
  * price_verified = FALSE (the public site then shows «السعر عند الاستفسار» until the admin confirms).
  *
  * Prints a Before/After comparison and exits with code 1 if anything is missing.
+ *
+ * CACHE WARNING (remote target): this writes to Supabase directly (service-role), bypassing the Next.js app,
+ * so it never invalidates the tagged catalog cache (see src/lib/revalidate.ts). Ordinary pages self-heal within
+ * a few minutes, but sitemap.ts is a "cached by default" Metadata Route Handler that will NOT pick this up on
+ * its own. Run `vercel deploy --prod` right after seeding a remote project — see docs/production.md §3.
  */
 import fs from "node:fs";
 import path from "node:path";

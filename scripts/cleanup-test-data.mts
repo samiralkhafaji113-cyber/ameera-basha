@@ -5,6 +5,10 @@
  * Anything else is left alone. Dry run by default; add --apply to delete.
  *
  *   tsx --env-file=.env.production.local scripts/cleanup-test-data.mts --allow-remote [--apply]
+ *
+ * CACHE WARNING (remote target, after --apply): direct service-role writes bypass the app's cache invalidation
+ * (see src/lib/revalidate.ts). If the deleted test product may have been cached (e.g. it was ever published and
+ * visited), run `vercel deploy --prod` afterwards so sitemap.xml / product pages don't keep referencing it.
  */
 import { flag, operatorTarget } from "./lib/operator.mts";
 
