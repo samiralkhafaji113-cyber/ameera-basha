@@ -48,22 +48,37 @@ for (const img of localImages) {
 const primaryMissing = rows.filter((r) => r.product_images.length > 0 && r.product_images.filter((i) => i.is_primary).length !== 1).map((r) => r.source_post_id);
 const noImages = rows.filter((r) => r.product_images.length === 0).map((r) => r.source_post_id);
 
-// storage objects + public URLs: HEAD every URL (bounded concurrency), must be 200 image/webp and a non-trivial size
+// storage objects + public URLs: HEAD every URL (bounded concurrency), must be 200 image/webp and a non-trivial size.
+// Retries transient 429s / network hiccups (CDN burst rate-limiting right after a large upload, or a flaky local
+// connection pool) a few times with backoff before calling a URL broken, so those don't masquerade as data loss.
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const urls = rows.flatMap((r) => r.product_images.map((i) => ({ url: i.public_url, path: i.storage_path })));
 const broken: string[] = [];
 let next = 0;
 await Promise.all(
-  Array.from({ length: 8 }, async () => {
+  Array.from({ length: 3 }, async () => {
     while (next < urls.length) {
       const { url, path: p } = urls[next++];
-      try {
-        const res = await fetch(url, { method: "HEAD" });
-        const type = res.headers.get("content-type") ?? "";
-        const size = Number(res.headers.get("content-length") ?? 0);
-        if (!res.ok || !type.includes("image/webp") || size < 500) broken.push(`${p} (${res.status} ${type} ${size}B)`);
-      } catch {
-        broken.push(`${p} (unreachable)`);
+      let lastErr = "";
+      let done = false;
+      for (let attempt = 1; attempt <= 6 && !done; attempt++) {
+        try {
+          const res = await fetch(url, { method: "HEAD" });
+          if ((res.status === 429 || res.status >= 500) && attempt < 6) {
+            lastErr = String(res.status);
+            await sleep(attempt * 600);
+            continue;
+          }
+          const type = res.headers.get("content-type") ?? "";
+          const size = Number(res.headers.get("content-length") ?? 0);
+          if (!res.ok || !type.includes("image/webp") || size < 500) broken.push(`${p} (${res.status} ${type} ${size}B)`);
+          done = true;
+        } catch (e) {
+          lastErr = e instanceof Error ? e.message : "unreachable";
+          if (attempt < 6) await sleep(attempt * 600);
+        }
       }
+      if (!done) broken.push(`${p} (${lastErr || "unreachable"} after retries)`);
     }
   }),
 );

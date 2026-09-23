@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-09-20T13:46:29.134Z",
+  "ranAt": "2026-09-22T11:19:38.449Z",
   "before": {
     "products": 72,
     "images": 282,
@@ -35,8 +35,13 @@
   },
   "missing": [],
   "checks": {
-    "no missing records": true,
+    "products before = after": true,
+    "images before = after": true,
+    "priced products preserved": true,
+    "per-category counts preserved": true,
     "no duplicates": true,
+    "no missing records": true,
+    "all published (as before)": true,
     "source url / post id / date kept on every product": true
   }
 }
